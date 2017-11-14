@@ -3,6 +3,100 @@ import torch.nn as nn
 import torch.nn.init as init
 
 
+class DeepLab_7x7(nn.Module):
+"""
+    input size: (3, 306, 306)
+    output size: (num_classes, 38, 38)
+
+    This network architecture is descriped in papar 
+    Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
+    https://arxiv.org/abs/1412.7062
+"""
+    def __init__(self, num_classes):
+        super(DeepLab, self).__init__()
+        self.features = nn.Sequential(
+            # conv 1
+            nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
+            # conv 2
+            nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
+            # conv 3
+            nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
+            # conv 4
+            nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=1),
+            # conv 5
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=2, dilation=2),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=2, dilation=2),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=2, dilation=2),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=1)
+        )
+        self.score = nn.Sequential(
+            nn.Conv2d(512, 4096, kernel_size=7, stride=1, padding=12, dilation=4),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Conv2d(4096, 4096, kernel_size=1, stride=1),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Conv2d(4096, num_classes, kernel_size=1, stride=1)
+        )
+
+    def forward(self, input_):
+        output = self.features(input_)
+        output = self.score(output)
+        return output
+
+    def load_state_dict(self, state_dict):
+        maps = {
+            'classifier.0.weight': 'score.0.weight',
+            'classifier.0.bias': 'score.0.bias',
+            'classifier.3.weight': 'score.3.weight',
+            'classifier.3.bias': 'score.3.bias',
+        }
+
+        own_state = self.state_dict()
+        for name, param in state_dict.items():
+            if name in own_state:
+                try:
+                    own_state[name].copy_(param)
+                except Exception:
+                    raise RuntimeError('something wrong')
+            elif name in maps:
+                if name == 'classifier.0.weight':
+                    param = param.view(4096, 512, 7, 7)
+                if name == 'classifier.3.weight':
+                    param = param.view(4096, 4096, 1, 1)
+                try:
+                    own_state[maps[name]].copy_(param)
+                except Exception:
+                    raise RuntimeError('something wrong')
+
+        init.xavier_normal(own_state['score.6.weight'])
+        init.constant(own_state['score.6.bias'], val=0)
+        
+
+        
 class DeepLab_LargeFOV(nn.Module):
 """
     input size: (3, 321, 321)
@@ -82,6 +176,7 @@ class DeepLab_LargeFOV(nn.Module):
                     init.constant(own_state[name], val=0)
            
  
+
 class DeepLab_MSc_LargeFOV(nn.Module):
 """
     input size: (3, 321, 321)
