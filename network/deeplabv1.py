@@ -2,6 +2,86 @@ import torch
 import torch.nn as nn
 import torch.nn.init as init
 
+
+class DeepLab_LargeFOV(nn.Module):
+"""
+    input size: (3, 321, 321)
+    output size: (num_classes, 41, 41)
+
+    This network architecture is descriped in papar 
+    Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
+    https://arxiv.org/abs/1412.7062
+    Caffe model can be found at http://liangchiehchen.com/projects/DeepLab-LargeFOV.html
+"""
+    def __init__(self, num_classes):
+        super(DeepLab_LargeFOV, self).__init__()
+        self.features = nn.Sequential(
+            nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
+
+            nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
+
+            nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
+
+            nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=3, stride=1, padding=1),
+
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=2, dilation=2),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=2, dilation=2),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=2, dilation=2),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=3, stride=1, padding=1)
+        )
+        self.score = nn.Sequential(
+            nn.Conv2d(512, 1024, kernel_size=3, stride=1, padding=12, dilation=12),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Conv2d(1024, 1024, kernel_size=1, stride=1),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Conv2d(1024, num_classes, kernel_size=1, stride=1)
+        )
+
+    def forward(self, input_):
+        output = self.features(input_)
+        output = self.score(output)
+        return output
+
+    def load_state_dict(self, state_dict):
+        own_state = self.state_dict()
+        for name in own_state.keys():
+            if name in state_dict:
+                try:
+                    own_state[name].copy_(state_dict[name])
+                except Exception:
+                    raise RuntimeError('something wrong')
+            else:
+                if 'weight' in name
+                    init.xavier_normal(own_state[name])
+                if 'bias' in name
+                    init.constant(own_state[name], val=0)
+           
+ 
 class DeepLab_MSc_LargeFOV(nn.Module):
 """
     input size: (3, 321, 321)
