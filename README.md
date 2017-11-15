@@ -1,1 +1,19 @@
-# semantic-segmentation-pytorch
+# Semantic Segmentation Using [Pytorch](http://pytorch.org/)
+
+## Network
+
+- [x] [FCN-32s](https://arxiv.org/abs/1605.06211)
+- [x] [DeepLab](https://arxiv.org/abs/1412.7062) (deeplab v1)
+- [x] [DeepLab-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
+- [x] [Deeplab-MSC-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
+
+## Metric
+coming soon
+
+## Dataset
+
+### [PASCAL VOC 2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/#citation)
+The original dataset contains 1464 images for training and 1449 images for validation. The dataset is augmented by the extra annotations provided by [Hariharan et al](http://home.bharathh.info/pubs/codes/SBD/download.html), resulting in 10582 images for training and 1449 images for validation(note that the validation images remain the same).
+
+## Model Download
+coming soon
