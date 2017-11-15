@@ -1,4 +1,5 @@
-# some codes come from https://github.com/bodokaiser/piwise
+# Some codes written by bodokaiser
+# https://github.com/bodokaiser/piwise/blob/master/piwise/dataset.py
 import os
 import math
 import random
@@ -12,7 +13,6 @@ LABEL_TO_NAME = {
     11: 'diningtable', 12: 'dog', 13: 'horse', 14: 'motorbike', 15: 'person',
     16: 'potted plant', 17: 'sheep', 18: 'sofa', 19: 'train', 20: 'tv/monitor'
 }
-
 
 EXTENSIONS = ['.jpg', '.png']
 
@@ -60,7 +60,6 @@ class VOC2012(Dataset):
             image = self.input_transform(image)
         if self.target_transform is not None:
             label = self.target_transform(label)
-
         return image, label
 
     def __len__(self):
