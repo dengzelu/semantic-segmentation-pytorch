@@ -5,7 +5,7 @@
 - [x] [FCN-32s](https://arxiv.org/abs/1605.06211)
 - [x] [DeepLab](https://arxiv.org/abs/1412.7062) (deeplab v1)
 - [x] [DeepLab-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
-- [x] [Deeplab-MSC-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
+- [x] [Deeplab-MSc-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
 
 ## Metric
 coming soon
