@@ -79,7 +79,7 @@ class VOC2012(Dataset):
             image = image.resize((math.ceil(w * ratio), math.ceil(h * ratio)), Image.BILINEAR)
             label = label.resize((math.ceil(w * ratio), math.ceil(h * ratio)), Image.NEAREST)
         w, h = image.size
-        assert h >= nh and w > nw, 'method VOC2012.random_crop() fails'
+        assert h >= nh and w >= nw, 'method VOC2012.random_crop() fails'
         i, j = random.randint(0, h - nh), random.randint(0, w - nw)
         image = image.crop((j, i, j + nw, i + nh))
         label = label.crop((j, i, j + nw, i + nh))
