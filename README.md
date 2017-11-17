@@ -8,7 +8,7 @@
 - [x] [DeepLab](https://arxiv.org/abs/1412.7062) (deeplab v1)
 - [x] [DeepLab-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
 - [x] [Deeplab-MSc-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
-
+- [x] [U-Net](https://arxiv.org/abs/1505.04597) (based on VGG16)
 ## Metric
 coming soon
 
