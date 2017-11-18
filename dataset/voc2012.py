@@ -7,7 +7,7 @@ import random
 from PIL import Image
 from torch.utils.data import Dataset
 
-LABEL_TO_NAME = {
+VOC2012_LABEL_TO_NAME = {
     0: 'background', 1: 'aeroplane', 2: 'bicycle', 3: 'bird', 4: 'boat',
     5: 'bottle', 6: 'bus', 7: 'car', 8: 'cat', 9: 'chair', 10: 'cow',
     11: 'diningtable', 12: 'dog', 13: 'horse', 14: 'motorbike', 15: 'person',
