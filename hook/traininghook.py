@@ -1,3 +1,6 @@
+__all__ = ["RecordHook"]
+
+
 class RecordHook(object):
     def __init__(self, total_step):
         self.total_step = total_step
