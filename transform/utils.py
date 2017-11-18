@@ -1,6 +1,8 @@
 import torch
 import numpy as np
 
+__all__ = ["ToLabel", "Relabel", "DownSampleLabel"]
+
 
 class ToLabel(object):
     def __call__(self, image):
