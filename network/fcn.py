@@ -4,9 +4,15 @@ import torch.nn.init as init
 
 import numpy as np
 
+"""
+    training input size for all model should be (32*k, 32*k), such as (320, 320), (480, 480)
+    output size: the same as the input size
+"""
+
 # Map the parameter name in our model to the public VGG16 parameter name
-# It is used in method initialize(torch.load('/path/to/your/vgg16-397923af.pth))
-# VGG16 model https://download.pytorch.org/models/vgg16-397923af.pth'
+# It is used in method initialize(torch.load('/path/to/your/vgg16_00b39a1b.pth))
+# VGG16 model https://github.com/jcjohnson/pytorch-vgg
+
 GENERAL_MAPS = {
     'layer1.0.weight': 'features.0.weight', 'layer1.0.bias': 'features.0.bias',
     'layer1.2.weight': 'features.2.weight', 'layer1.2.bias': 'features.2.bias',
@@ -21,8 +27,8 @@ GENERAL_MAPS = {
     'layer5.0.weight': 'features.24.weight', 'layer5.0.bias': 'features.24.bias',
     'layer5.2.weight': 'features.26.weight', 'layer5.2.bias': 'features.26.bias',
     'layer5.4.weight': 'features.28.weight', 'layer5.4.bias': 'features.28.bias',
-    'layer6.0.weight': 'classifier.0.weight', 'layer6.0.bias': 'classifier.0.bias',
-    'layer6.3.weight': 'classifier.3.weight', 'layer6.3.bias': 'classifier.3.bias'}
+    'layer6.0.weight': 'classifier.1.weight', 'layer6.0.bias': 'classifier.1.bias',
+    'layer6.3.weight': 'classifier.4.weight', 'layer6.3.bias': 'classifier.4.bias'}
 
 
 def upscore_filter(kernel_size, num_classes):
@@ -35,8 +41,9 @@ def upscore_filter(kernel_size, num_classes):
         center = factor - 0.5
     og = np.ogrid[:kernel_size, :kernel_size]
 
-    filter_2d = torch.FloatTensor(
-        (1 - abs(og[0] - center) / factor) * (1 - abs(og[1] - center) / factor))
+    filter_2d = torch.from_numpy(
+        (1 - abs(og[0] - center) / factor) * (1 - abs(og[1] - center) / factor)
+    ).float()
     filter_4d = torch.zeros(num_classes, num_classes, kernel_size, kernel_size)
     for i in range(num_classes):
         filter_4d[i, i, :, :].copy_(filter_2d)
@@ -103,7 +110,14 @@ class _FCNBase(nn.Module):
             nn.Conv2d(4096, num_classes, kernel_size=1, stride=1)
         )
 
+    def forward(self, *input_):
+        pass
+
     def initialize(self, state_dict):
+        """
+            Initialize the model with state_dict
+
+        """
         maps = GENERAL_MAPS
         own_state = self.state_dict()
         for name in own_state.keys():
