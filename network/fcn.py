@@ -5,9 +5,9 @@ import torch.nn.init as init
 import numpy as np
 
 """
-    training stage (for all model):
-    input size: (32*k, 32*k), such as (320, 320), (480, 480)
-    output size: the same as the input size
+training stage (for all model):
+input size: (32*k, 32*k), such as (320, 320), (480, 480)
+output size: the same as the input size
 """
 
 __all__ = ["FCN32s", "FCN16s", "FCN8s"]
