@@ -6,13 +6,13 @@ __all__ = ["DeepLab7x7", "DeepLabLargeFOV", "DeepLabMScLargeFOV"]
 
 class DeepLab7x7(nn.Module):
     """
-        training stage:
-            input size: (3, 306, 306)
-            output size: (num_classes, 38, 38)
-        mean IOU: 64.38% (before CRF) reported in paper
-        The network architecture is described in paper
-        Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
-        https://arxiv.org/abs/1412.7062
+    training stage:
+        input size: (3, 306, 306)
+        output size: (num_classes, 38, 38)
+    mean IOU: 64.38% (before CRF) reported in paper
+    The network architecture is described in paper
+    Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
+    https://arxiv.org/abs/1412.7062
     """
 
     def __init__(self, num_classes):
@@ -102,14 +102,14 @@ class DeepLab7x7(nn.Module):
 
 class DeepLabLargeFOV(nn.Module):
     """
-        training stage:
-            input size: (3, 321, 321)
-            output size: (num_classes, 41, 41)
-        mean IOU: 62.25% (before CRF) reported in paper
-        The network architecture is described in paper
-        Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
-        https://arxiv.org/abs/1412.7062
-        Caffe model can be found at http://liangchiehchen.com/projects/DeepLab-LargeFOV.html
+    training stage:
+        input size: (3, 321, 321)
+        output size: (num_classes, 41, 41)
+    mean IOU: 62.25% (before CRF) reported in paper
+    The network architecture is described in paper
+    Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
+    https://arxiv.org/abs/1412.7062
+    Caffe model can be found at http://liangchiehchen.com/projects/DeepLab-LargeFOV.html
     """
 
     def __init__(self, num_classes):
@@ -184,14 +184,14 @@ class DeepLabLargeFOV(nn.Module):
 
 class DeepLabMScLargeFOV(nn.Module):
     """
-        training stage:
-            input size: (3, 321, 321)
-            output size: (num_classes, 41, 41)
-        mean IOU: 64.21% (before CRF) reported in paper
-        The network architecture is described in paper
-        Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
-        https://arxiv.org/abs/1412.7062
-        Caffe model can be found at http://liangchiehchen.com/projects/DeepLab-MSc-LargeFOV.html
+    training stage:
+        input size: (3, 321, 321)
+        output size: (num_classes, 41, 41)
+    mean IOU: 64.21% (before CRF) reported in paper
+    The network architecture is described in paper
+    Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
+    https://arxiv.org/abs/1412.7062
+    Caffe model can be found at http://liangchiehchen.com/projects/DeepLab-MSc-LargeFOV.html
     """
 
     def __init__(self, num_classes):
