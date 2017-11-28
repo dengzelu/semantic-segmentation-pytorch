@@ -1,12 +1,15 @@
 import torch.nn as nn
 import torch.nn.init as init
 
+__all__ = ["DeepLab7x7", "DeepLabLargeFOV", "DeepLabMScLargeFOV"]
+
 
 class DeepLab7x7(nn.Module):
     """
-        input size: (3, 306, 306)
-        output size: (num_classes, 38, 38)
-
+        training stage:
+            input size: (3, 306, 306)
+            output size: (num_classes, 38, 38)
+        mean IOU: 64.38% (before CRF) reported in paper
         The network architecture is described in paper
         Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
         https://arxiv.org/abs/1412.7062
@@ -69,10 +72,10 @@ class DeepLab7x7(nn.Module):
 
     def initialize(self, state_dict):
         maps = {
-            'score.0.weight': 'classifier.0.weight',
-            'score.0.bias': 'classifier.0.bias',
-            'score.3.weight': 'classifier.3.weight',
-            'score.3.bias': 'classifier.3.bias',
+            'score.0.weight': 'classifier.1.weight',
+            'score.0.bias': 'classifier.1.bias',
+            'score.3.weight': 'classifier.4.weight',
+            'score.3.bias': 'classifier.4.bias',
         }
         own_state = self.state_dict()
         for name in own_state.keys():
@@ -99,9 +102,10 @@ class DeepLab7x7(nn.Module):
 
 class DeepLabLargeFOV(nn.Module):
     """
-        input size: (3, 321, 321)
-        output size: (num_classes, 41, 41)
-
+        training stage:
+            input size: (3, 321, 321)
+            output size: (num_classes, 41, 41)
+        mean IOU: 62.25% (before CRF) reported in paper
         The network architecture is described in paper
         Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
         https://arxiv.org/abs/1412.7062
@@ -180,9 +184,10 @@ class DeepLabLargeFOV(nn.Module):
 
 class DeepLabMScLargeFOV(nn.Module):
     """
-        input size: (3, 321, 321)
-        output size: (num_classes, 41, 41)
-
+        training stage:
+            input size: (3, 321, 321)
+            output size: (num_classes, 41, 41)
+        mean IOU: 64.21% (before CRF) reported in paper
         The network architecture is described in paper
         Semantic Image Segmentation With Deep Convolution Nets And Fully Connected CRFs
         https://arxiv.org/abs/1412.7062
