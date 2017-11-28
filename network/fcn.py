@@ -9,6 +9,8 @@ import numpy as np
     output size: the same as the input size
 """
 
+__all__ = [FCN32s, FCN16s, FCN8s]
+
 # Map the parameter name in our model to the public VGG16 parameter name
 # It is used in method initialize(torch.load('/path/to/your/vgg16_00b39a1b.pth))
 # VGG16 model https://github.com/jcjohnson/pytorch-vgg
@@ -143,7 +145,7 @@ class _FCNBase(nn.Module):
                     init.xavier_normal(own_state[name])
 
 
-class FCN32(_FCNBase):
+class FCN32s(_FCNBase):
     def __init__(self, num_classes=21):
         super(FCN32, self).__init__(num_classes)
         self.num_classes = num_classes
@@ -166,7 +168,7 @@ class FCN32(_FCNBase):
         super(FCN32, self).initialize(state_dict)
 
 
-class FCN16(_FCNBase):
+class FCN16s(_FCNBase):
     def __init__(self, num_classes=21):
         super(FCN16, self).__init__(num_classes)
         self.num_classes = num_classes
@@ -199,7 +201,7 @@ class FCN16(_FCNBase):
         super(FCN16, self).initialize(state_dict)
 
 
-class FCN8(_FCNBase):
+class FCN8s(_FCNBase):
     def __init__(self, num_classes=21):
         super(FCN8, self).__init__(num_classes)
         self.num_classes = num_classes
