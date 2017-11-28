@@ -12,7 +12,7 @@
 ## Metric on PASCAL VOC 2012 validation set
 Network|mean IoU|Download
 :---:|:---:|:---:
-DeepLab|63.04 (64.38 in paper)|[deeplab.pth]()
+DeepLab|63.04 (64.38 in paper)|[deeplab.pth](https://pan.baidu.com/s/1dFbDWoL)
 
 ## Dataset
 
