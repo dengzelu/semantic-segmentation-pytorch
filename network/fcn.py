@@ -5,11 +5,12 @@ import torch.nn.init as init
 import numpy as np
 
 """
-    training input size for all model should be (32*k, 32*k), such as (320, 320), (480, 480)
+    training stage (for all model):
+    input size: (32*k, 32*k), such as (320, 320), (480, 480)
     output size: the same as the input size
 """
 
-__all__ = [FCN32s, FCN16s, FCN8s]
+__all__ = ["FCN32s", "FCN16s", "FCN8s"]
 
 # Map the parameter name in our model to the public VGG16 parameter name
 # It is used in method initialize(torch.load('/path/to/your/vgg16_00b39a1b.pth))
@@ -147,7 +148,7 @@ class _FCNBase(nn.Module):
 
 class FCN32s(_FCNBase):
     def __init__(self, num_classes=21):
-        super(FCN32, self).__init__(num_classes)
+        super(FCN32s, self).__init__(num_classes)
         self.num_classes = num_classes
         # upsample 32x to 1x
         self.upscore = nn.ConvTranspose2d(
@@ -165,12 +166,12 @@ class FCN32s(_FCNBase):
         return output
 
     def initialize(self, state_dict):
-        super(FCN32, self).initialize(state_dict)
+        super(FCN32s, self).initialize(state_dict)
 
 
 class FCN16s(_FCNBase):
     def __init__(self, num_classes=21):
-        super(FCN16, self).__init__(num_classes)
+        super(FCN16s, self).__init__(num_classes)
         self.num_classes = num_classes
 
         self.score_pool4 = nn.Conv2d(512, num_classes, kernel_size=1, stride=1)
@@ -198,12 +199,12 @@ class FCN16s(_FCNBase):
         return output
 
     def initialize(self, state_dict):
-        super(FCN16, self).initialize(state_dict)
+        super(FCN16s, self).initialize(state_dict)
 
 
 class FCN8s(_FCNBase):
     def __init__(self, num_classes=21):
-        super(FCN8, self).__init__(num_classes)
+        super(FCN8s, self).__init__(num_classes)
         self.num_classes = num_classes
 
         self.score_pool3 = nn.Conv2d(256, num_classes, kernel_size=1, stride=1)
@@ -240,4 +241,4 @@ class FCN8s(_FCNBase):
         return output
 
     def initialize(self, state_dict):
-        super(FCN8, self).initialize(state_dict)
+        super(FCN8s, self).initialize(state_dict)
