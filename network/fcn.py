@@ -118,8 +118,7 @@ class _FCNBase(nn.Module):
 
     def initialize(self, state_dict):
         """
-            Initialize the model with state_dict
-
+        Initialize the model with state_dict
         """
         maps = GENERAL_MAPS
         own_state = self.state_dict()
