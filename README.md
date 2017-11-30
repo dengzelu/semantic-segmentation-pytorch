@@ -12,7 +12,7 @@
 ## Metric on PASCAL VOC 2012 validation set
 Network|mean IoU|Download
 :---:|:---:|:---:
-FCN-32s|57.63|[fcn32.pth](https://pan.baidu.com/s/1bpMzsOB)
+FCN-32s|57.63|[fcn32s.pth](https://pan.baidu.com/s/1bpMzsOB)
 DeepLab7x7|63.16 (64.38 in paper)|[deeplab7x7.pth](https://pan.baidu.com/s/1dFtUXqT)
 
 ## Dataset
