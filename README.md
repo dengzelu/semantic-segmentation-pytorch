@@ -7,13 +7,15 @@
 - [x] [FCN-32s](https://arxiv.org/abs/1605.06211)
 - [x] [DeepLab7x7](https://arxiv.org/abs/1412.7062) (deeplab v1)
 - [x] [DeepLab-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
-- [x] [Deeplab-MSc-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
+- [x] [DeepLab-MSc-LargeFOV](https://arxiv.org/abs/1412.7062) (deeplab v1)
+- [x] [DeepLab-MSc-ResNet101](https://arxiv.org/abs/1606.00915) (deeplab v2)
 - [x] [U-Net](https://arxiv.org/abs/1505.04597) (based on VGG16)
 ## Metric on PASCAL VOC 2012 validation set
 Network|mean IoU|Download
 :---:|:---:|:---:
 FCN-32s|57.63|[fcn32s.pth](https://pan.baidu.com/s/1bpMzsOB)
 DeepLab7x7|63.16 (64.38 in paper)|[deeplab7x7.pth](https://pan.baidu.com/s/1dFtUXqT)
+DeepLab-MSc-ResNet101|76.46 (76.35 in paper)|[deeplabv2.pth](https://pan.baidu.com/s/1mhLQN92)
 
 ## Dataset
 
