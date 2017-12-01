@@ -14,6 +14,7 @@
 Network|mean IoU|Download
 :---:|:---:|:---:
 FCN-32s|57.63|[fcn32s.pth](https://pan.baidu.com/s/1bpMzsOB)
+FCN-16s|60.30|[fcn16s.pth](https://pan.baidu.com/s/1o8vEGdW)
 DeepLab7x7|63.16 (64.38 in paper)|[deeplab7x7.pth](https://pan.baidu.com/s/1dFtUXqT)
 DeepLab-MSc-ResNet101|76.46 (76.35 in paper)|[deeplabv2.pth](https://pan.baidu.com/s/1mhLQN92)
 
